@@ -16,7 +16,7 @@ if [[ -s ${DNSMASQ_FILE} ]]; then
         touch "${ISCDHCP_FILE}"
     fi
     echo "Converting DNSMASQ static DHCP into ISC DHCP format"
-    if awk -F'[=,]' '{printf "host %s {\n\thardware ethernet %s;\n\tfixed-address %s;\n}\n",$4,$2,$3}' < <(sort -t'.' -k3,3n -k4,4n "${DNSMASQ_FILE}") > "${ISCDHCP_FILE}"; then
+    if awk -F'[=,]' '{printf "host %s {\n\thardware ethernet %s;\n\tfixed-address %s;\n}\n",$3,$1,$2}' < <(sort -t'.' -k3,3n -k4,4n "${DNSMASQ_FILE}") > "${ISCDHCP_FILE}"; then
         echo "File ${ISCDHCP_FILE} has been updated"
         exit 0
     else
